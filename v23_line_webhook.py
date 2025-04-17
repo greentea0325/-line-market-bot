@@ -5,12 +5,13 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 import market_indicator_fetcher
+import os
 
 app = Flask(__name__)
 
-# ⚠️ 請自行填入你的 Channel Access Token 與 Secret
-line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
-handler = WebhookHandler("YOUR_CHANNEL_SECRET")
+# ✅ 從環境變數讀取 Token
+line_bot_api = LineBotApi(os.environ["YOUR_CHANNEL_ACCESS_TOKEN"])
+handler = WebhookHandler(os.environ["YOUR_CHANNEL_SECRET"])
 
 @app.route("/callback", methods=["POST"])
 def callback():
